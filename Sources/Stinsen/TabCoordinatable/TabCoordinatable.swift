@@ -75,10 +75,14 @@ public extension TabCoordinatable {
                             let rhs = $0 as! PartialKeyPath<Self>
                             return (lhs == rhs)
                         },
-                        tabItem: { [unowned self] in
+                        tabItem: { [weak self] in
+                            guard let self = self else { return }
+                            
                             val.tabItem(active: $0, coordinator: self)
                         },
-                        onTapped: { [unowned self] isRepeat in
+                        onTapped: { [weak self] isRepeat in
+                            guard let self = self else { return }
+                            
                             val.onTapped(isRepeat, coordinator: self)
                         }
                     )
