@@ -4,7 +4,7 @@ import SwiftUI
 struct TabChildItem {
     let presentable: ViewPresentable
     let keyPathIsEqual: (Any) -> Bool
-    let tabItem: (Bool) -> AnyView
+    let tabItem: (Bool) -> AnyView?
     let onTapped: (Bool) -> Void
 }
 

@@ -76,9 +76,9 @@ public extension TabCoordinatable {
                             return (lhs == rhs)
                         },
                         tabItem: { [weak self] in
-                            guard let self = self else { return }
+                            guard let self = self else { return nil }
                             
-                            val.tabItem(active: $0, coordinator: self)
+                            return val.tabItem(active: $0, coordinator: self)
                         },
                         onTapped: { [weak self] isRepeat in
                             guard let self = self else { return }
@@ -91,6 +91,11 @@ public extension TabCoordinatable {
         }
         
         self.child.allItems = all
+    }
+    
+    @ViewBuilder
+    func empty() -> some View {
+        EmptyView()
     }
     
     func customize(_ view: AnyView) -> some View {
