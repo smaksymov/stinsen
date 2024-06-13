@@ -19,7 +19,7 @@ public class NavigationRoot: ObservableObject {
 }
 
 /// Represents a stack of routes
-public class NavigationStack<T: NavigationCoordinatable> {
+public class StinsenNavigationStack<T: NavigationCoordinatable> {
     var dismissalAction: [Int: () -> Void] = [:]
     
     weak var parent: ChildDismissable?
@@ -39,7 +39,7 @@ public class NavigationStack<T: NavigationCoordinatable> {
 }
 
 /// Convenience checks against the navigation stack's contents
-public extension NavigationStack {
+public extension StinsenNavigationStack {
     /**
         The Hash of the route at the top of the stack
         - Returns: the hash of the route at the top of the stack or -1

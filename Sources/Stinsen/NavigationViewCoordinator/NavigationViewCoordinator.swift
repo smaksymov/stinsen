@@ -14,7 +14,7 @@ public class NavigationViewCoordinator<T: NavigationCoordinatable>: ViewWrapperC
             #else
             if #available(iOS 16.0, *) {
                 AnyView(
-                    NavigationStack(path: $path) {
+                    StinsenNavigationStack(path: $path) {
                         view
                     }
                         .navigationViewStyle(.automatic)

@@ -11,7 +11,7 @@ public protocol NavigationCoordinatable: Coordinatable {
 
     var routerStorable: RouterStoreType { get }
     
-    var stack: NavigationStack<Self> { get }
+    var stack: StinsenNavigationStack<Self> { get }
 
     /**
      Implement this function if you wish to customize the view on all views and child coordinators, for instance, if you wish to change the `tintColor` or inject an `EnvironmentObject`.
