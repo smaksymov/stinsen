@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Combine
 
 /// The NavigationViewCoordinator is used to represent a coordinator with a NavigationView
 open class ViewWrapperCoordinator<T: Coordinatable, V: View>: Coordinatable {
@@ -13,6 +14,8 @@ open class ViewWrapperCoordinator<T: Coordinatable, V: View>: Coordinatable {
     }
 
     public weak var parent: ChildDismissable?
+    @State public var path = [Int]()
+    var bag = Set<AnyCancellable>()
     public let child: T
     private let viewFactory: (any Coordinatable) -> (AnyView) -> V
 

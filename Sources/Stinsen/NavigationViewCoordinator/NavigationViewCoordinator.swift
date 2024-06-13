@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 
 /// The NavigationViewCoordinator is used to represent a coordinator with a NavigationView
-public class NavigationViewCoordinator<T: Coordinatable>: ViewWrapperCoordinator<T, AnyView> {
+public class NavigationViewCoordinator<T: NavigationCoordinatable>: ViewWrapperCoordinator<T, AnyView> {
     public init(_ childCoordinator: T) {
         super.init(childCoordinator) { view in
             #if os(macOS)
@@ -12,13 +12,32 @@ public class NavigationViewCoordinator<T: Coordinatable>: ViewWrapperCoordinator
                 }
             )
             #else
-            AnyView(
-                NavigationView {
-                    view
-                }
-                .navigationViewStyle(StackNavigationViewStyle())
-            )
+            if #available(iOS 16.0, *) {
+                AnyView(
+                    NavigationStack(path: $path) {
+                        view
+                    }
+                        .navigationViewStyle(.automatic)
+                )
+            } else {
+                AnyView(
+                    NavigationView {
+                        view
+                    }
+                    .navigationViewStyle(.stack)
+                )
+            }
             #endif
+        }
+        if #available(iOS 16.0, *) {
+            childCoordinator.stack.$value
+                .map { result -> [Int] in
+                    Array(result.indices)
+                }
+                .sink { [weak self] result in
+                    self?.path = result
+                }
+                .store(in: &bag)
         }
     }
     
